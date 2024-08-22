@@ -1,0 +1,38 @@
+
+  function doPost(e){
+    var op = e.parameter.action;
+    var datats=JSON.parse(e.postData.contents);
+    if(datats.Sheetname=="getupdatesform"){
+        var ss=SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1qOXeoYuvk43XIuW6aLIqBpL7N4JP1-_m2AhondbMsMY/edit?gid=0#gid=0");
+        var sheet = ss.getSheetByName("Get_Updates");
+        return insert_getupdatesform(datats,sheet);
+    }
+    else{
+        var ss=SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1qOXeoYuvk43XIuW6aLIqBpL7N4JP1-_m2AhondbMsMY/edit?gid=1318456446#gid=1318456446");
+        var sheet = ss.getSheetByName("Online_Registration");
+        return insert_Online_Registrationform(datats,sheet);
+    }
+    
+    
+  }
+  
+  function insert_getupdatesform(data,sheet){
+   
+    var date = new Date();
+  sheet.appendRow(['=ROW()-1',date,data.Name,data['Mobile Number']]); 
+    var result="Insertion successful";
+    result = JSON.stringify({"result":result});  
+    return ContentService
+    .createTextOutput(result)
+    .setMimeType(ContentService.MimeType.JAVASCRIPT);   
+}
+function insert_Online_Registrationform(data,sheet){
+   
+    var date = new Date();
+  sheet.appendRow(['=ROW()-1',date,data.Name,data['Mobile Number']]); 
+    var result="Insertion successful";
+    result = JSON.stringify({"result":result});  
+    return ContentService
+    .createTextOutput(result)
+    .setMimeType(ContentService.MimeType.JAVASCRIPT);   
+}
